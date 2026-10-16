@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rubikon Sewing Patterns</title>
+  <meta name="description" content="Choose a garment, enter your measurements and get a printable sewing pattern with step-by-step instructions. In English, Armenian and Russian.">
+  <meta name="theme-color" content="#043069">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Onest:wght@400;500;600;700&family=Noto+Sans+Armenian:wght@400;500;600;700&family=Noto+Serif+Armenian:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="./" aria-label="Rubikon">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="12" cy="12" r="7" fill="currentColor"/>
+        <path d="M16.5 16.5 L34 34" stroke="#043069" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M4 36 C 14 30, 22 38, 36 26" stroke="#043069" stroke-width="1.6" fill="none" stroke-dasharray="3 2.4"/>
+      </svg>
+      <span>Rubikon</span>
+    </a>
+    <p class="tagline" data-t="tagline"></p>
+    <div class="lang" id="lang" role="radiogroup" data-t-aria="language"></div>
+  </header>
+
+  <section class="picker" aria-labelledby="what-sew">
+    <h2 id="what-sew" data-t="whatSew"></h2>
+    <div class="garments" id="garments" role="radiogroup" aria-labelledby="what-sew"></div>
+  </section>
+
+  <main class="app">
+    <aside class="panel">
+      <h2 data-t="measurements"></h2>
+
+      <div class="howto" aria-live="polite">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15h18v4H3z M6 15v2 M9 15v3 M12 15v2 M15 15v3 M18 15v2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        <p id="howto-text"></p>
+      </div>
+
+      <form id="measure-form" novalidate onsubmit="return false">
+        <div id="fields"></div>
+        <details class="advanced" id="advanced">
+          <summary id="advanced-summary"></summary>
+          <div id="fields-advanced"></div>
+        </details>
+      </form>
+
+      <h2 class="style-head" data-t="style"></h2>
+      <div id="choices"></div>
+
+      <button type="button" class="link-btn" id="reset" data-t="reset"></button>
+    </aside>
+
+    <section class="work" aria-labelledby="summary">
+      <div class="work-head">
+        <h1 id="summary"></h1>
+        <p class="sub" id="summary-sub"></p>
+      </div>
+
+      <div class="notice" id="notice" hidden></div>
+
+      <div class="tabs" role="tablist">
+        <button role="tab" id="tab-pattern" aria-controls="panel-pattern" aria-selected="true" data-t="tabPattern"></button>
+        <button role="tab" id="tab-cutting" aria-controls="panel-cutting" aria-selected="false" tabindex="-1" data-t="tabCutting"></button>
+        <button role="tab" id="tab-steps" aria-controls="panel-steps" aria-selected="false" tabindex="-1" data-t="tabSteps"></button>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="panel-pattern" aria-labelledby="tab-pattern">
+        <div class="toolbar">
+          <div class="zoom" role="group">
+            <button type="button" id="zoom-out" data-t-aria="zoomOut">−</button>
+            <button type="button" id="zoom-fit" data-t="zoomFit"></button>
+            <button type="button" id="zoom-in" data-t-aria="zoomIn">+</button>
+          </div>
+          <label class="toggle"><input type="checkbox" id="show-pages"> <span data-t="showPages"></span></label>
+          <span class="spacer"></span>
+          <label class="paper"><span data-t="paper"></span>
+            <select id="paper">
+              <option value="A4">A4</option>
+              <option value="Letter">US Letter</option>
+            </select>
+          </label>
+          <button type="button" class="btn btn-primary" id="print-pattern" data-t="printPattern"></button>
+          <button type="button" class="btn" id="download-svg" data-t="download"></button>
+        </div>
+        <div class="mat-wrap"><div class="mat" id="mat" role="img"></div></div>
+        <p class="note" id="page-count"></p>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="panel-cutting" aria-labelledby="tab-cutting" hidden>
+        <div class="cutting-grid">
+          <div class="fabric-card">
+            <h3 data-t="fabricBuy"></h3>
+            <p class="big" id="fabric-amount">–</p>
+            <label class="paper"><span data-t="fabricWidth"></span>
+              <select id="fabric-width">
+                <option value="110">110 cm</option>
+                <option value="140" selected>140 cm</option>
+                <option value="150">150 cm</option>
+              </select>
+            </label>
+            <p class="note" data-t="extraNote"></p>
+          </div>
+          <div>
+            <h3 data-t="cuttingList"></h3>
+            <table class="cut-table" id="cut-table"></table>
+          </div>
+          <div class="supplies">
+            <h3 data-t="alsoNeed"></h3>
+            <ul id="supplies"></ul>
+          </div>
+          <figure class="layout-fig">
+            <figcaption data-t="layoutCaption"></figcaption>
+            <div id="fabric-layout"></div>
+          </figure>
+        </div>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="panel-steps" aria-labelledby="tab-steps" hidden>
+        <div class="steps-head">
+          <p id="steps-progress" class="note"></p>
+          <button type="button" class="btn" id="print-steps" data-t="printSteps"></button>
+        </div>
+        <ol class="steps" id="steps"></ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p data-t="footer"></p>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
